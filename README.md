@@ -1,6 +1,4 @@
-# Full-Stack Starter
-
-This repository contains a "starter" project for web application development in JavaScript. This includes the following components, from front-end to back-end:
+# SubtitleIt
 
 - React 18.2.0
 - React Router 6.20.0
@@ -290,8 +288,8 @@ This repository contains a "starter" project for web application development in 
 
 ## License
 
-Full-Stack Starter  
-Copyright (C) 2023 <Dev/Mission>
+SubtitleIt
+Copyright (C) 2024 CHSA
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
