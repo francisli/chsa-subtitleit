@@ -54,18 +54,16 @@ router.delete('/:id', interceptors.requireAdmin, async (req, res) => {
   });
 });
 
-router.get('/:id', async (req, res) => {
-  req.logout(async () => {
-    const record = await models.Job.findByPk(req.params.id);
-    if (record) {
-      if (record.response?.TranscriptionJob?.TranscriptionJobStatus === 'IN_PROGRESS') {
-        await record.updateTranscription();
-      }
-      res.json(record.toJSON());
-    } else {
-      res.status(StatusCodes.NOT_FOUND).end();
+router.get('/:id', interceptors.requireLogin, async (req, res) => {
+  const record = await models.Job.findByPk(req.params.id);
+  if (record) {
+    if (record.response?.TranscriptionJob?.TranscriptionJobStatus === 'IN_PROGRESS') {
+      await record.updateTranscription();
     }
-  });
+    res.json(record.toJSON());
+  } else {
+    res.status(StatusCodes.NOT_FOUND).end();
+  }
 });
 
 export default router;
