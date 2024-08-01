@@ -14,6 +14,7 @@ function Home() {
   const staticContext = useStaticContext();
   const authContext = useAuthContext();
 
+  const [isShowingForm, setShowingForm] = useState(false);
   const [data, setData] = useState({
     file: '',
     fileName: '',
@@ -39,6 +40,10 @@ function Home() {
 
   async function onSubmit(event) {
     event.preventDefault();
+    if (!isShowingForm) {
+      setShowingForm(true);
+      return;
+    }
     try {
       const response = await Api.jobs.create(data);
       setJobs([response.data, ...jobs]);
@@ -47,6 +52,7 @@ function Home() {
         fileName: '',
         fileUrl: '',
       });
+      setShowingForm(false);
     } catch (err) {
       setError(err);
     }
@@ -86,28 +92,56 @@ function Home() {
           </p>
         )}
         {authContext.user && (
-          <div>
+          <>
+            <h2 className="mb-3">How to update a ModelViewer website with Audio and Captions</h2>
+            <ol className="mb-5">
+              <li>
+                <a download href="/modelviewer/script.js">
+                  Download the updated <b>script.js</b>
+                </a>{' '}
+                and replace the existing file.
+              </li>
+              <li>
+                <a download href="/modelviewer/styles.scss">
+                  Download the updated <b>styles.scss</b>
+                </a>{' '}
+                and replace the existing file.
+              </li>
+              <li>
+                Rename your audio file to <b>recording.m4a</b> and put it in the same folder as the other files.
+              </li>
+              <li>
+                <b>Start a new Job</b> below to upload your audio file and generate a captions file.
+              </li>
+              <li>
+                When completed, download the captions file, rename it to <b>recording.vtt</b> and put it in the same folder as the other
+                files.
+              </li>
+            </ol>
             <h2 className="mb-3">Transcription Jobs</h2>
             <form className="mb-3" onSubmit={onSubmit}>
-              <div className="mb-2">
-                <FileInput
-                  className="card"
-                  id="file"
-                  name="file"
-                  value={data.file}
-                  valueName={data.fileName}
-                  valueUrl={data.fileUrl}
-                  onChange={onChange}
-                  onUploading={setUploading}>
-                  <div className="card-body">
-                    <div className="card-text">
-                      Drag-and-drop an audio file here, or click here to browse and select a file to start a new job.
+              {isShowingForm && (
+                <div className="mb-2">
+                  <FileInput
+                    className="card"
+                    id="file"
+                    name="file"
+                    value={data.file}
+                    valueName={data.fileName}
+                    valueUrl={data.fileUrl}
+                    onChange={onChange}
+                    onUploading={setUploading}>
+                    <div className="card-body">
+                      <div className="card-text pointer">
+                        <b>Drag-and-drop</b> an audio file here, or <b>click here</b> to browse and select a file. Then press{' '}
+                        <b>Start new Job</b> again to confirm.
+                      </div>
                     </div>
-                  </div>
-                </FileInput>
-                {error?.errorMessagesHTMLFor?.('file')}
-              </div>
-              <button disabled={isUploading || !data.file} type="submit" name="submit" className="btn btn-primary">
+                  </FileInput>
+                  {error?.errorMessagesHTMLFor?.('file')}
+                </div>
+              )}
+              <button disabled={isShowingForm && (isUploading || !data.file)} type="submit" name="submit" className="btn btn-primary">
                 Start new Job
               </button>
             </form>
@@ -116,10 +150,10 @@ function Home() {
                 {jobs?.map((j) => (
                   <tr key={j.id}>
                     <td className="align-middle w-300px">{DateTime.fromISO(j.createdAt).toLocaleString(DateTime.DATETIME_FULL)}</td>
-                    <td className="align-middle">{j.fileName}</td>
-                    <td className="align-middle">
+                    <td className="align-middle text-center w-300px">
                       <JobStatus job={j} onChange={onChangeJob} />
                     </td>
+                    <td className="align-middle">{j.fileName}</td>
                     <td className="align-middle text-end">
                       <button onClick={() => onDelete(j)} className="btn btn-sm btn-danger">
                         Delete
@@ -129,7 +163,7 @@ function Home() {
                 ))}
               </tbody>
             </table>
-          </div>
+          </>
         )}
       </main>
     </>

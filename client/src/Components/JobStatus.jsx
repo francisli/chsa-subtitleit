@@ -8,7 +8,7 @@ function JobStatus({ job, onChange }) {
     if (!job.response || job.response.TranscriptionJob?.TranscriptionJobStatus === 'IN_PROGRESS') {
       setTimeout(() => {
         Api.jobs.get(job.id).then((response) => onChange(response.data));
-      }, 500);
+      }, 1000);
     }
   }, [job]);
 
@@ -31,8 +31,8 @@ function JobStatus({ job, onChange }) {
     <>
       {job.response?.TranscriptionJob?.TranscriptionJobStatus === 'COMPLETED' && (
         <>
-          <a download={`recording.vtt`} href={vttPath(job)} target="_blank">
-            .vtt
+          <a download href={vttPath(job)} target="_blank">
+            Download captions
           </a>
         </>
       )}
