@@ -72,6 +72,20 @@ const Api = {
       return instance.delete(`/api/invites/${id}`);
     },
   },
+  jobs: {
+    index() {
+      return instance.get(`/api/jobs`);
+    },
+    create(data) {
+      return instance.post('/api/jobs', data);
+    },
+    get(id) {
+      return instance.get(`/api/jobs/${id}`);
+    },
+    delete(id) {
+      return instance.delete(`/api/jobs/${id}`);
+    },
+  },
   passwords: {
     reset(email) {
       return instance.post('/api/passwords', { email });

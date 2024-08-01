@@ -1,0 +1,33 @@
+.file-input__preview {
+  margin: 1rem;
+  max-width: 300px;
+  display: flex;
+}
+
+.file-input__remove {
+  border-radius: 50%;
+  font-weight: bold;
+  height: 1.5rem;
+  line-height: 1;
+  margin-right: 0.5rem;
+  padding: 0 0 0.1rem 0;
+  right: -0.75rem;
+  top: -0.75rem;
+  width: 1.5rem;
+}
+
+.file-input__spinner {
+  color: white;
+  display: none;
+  height: 3rem;
+  position: absolute;
+  top: calc(50% - 1.5rem);
+  left: calc(50% - 1.5rem);
+  width: 3rem;
+}
+
+.file-input__preview--uploading {
+  .file-input__spinner {
+    display: block;
+  }
+}
