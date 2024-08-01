@@ -12,11 +12,11 @@ function JobStatus({ job, onChange }) {
     }
   }, [job]);
 
-  function srtPath(job) {
+  function vttPath(job) {
     let assetPath = '/api/assets';
     const subtitleUris = job.response?.TranscriptionJob?.Subtitles?.SubtitleFileUris;
     for (const uri of subtitleUris) {
-      if (uri.endsWith('.srt')) {
+      if (uri.endsWith('.vtt')) {
         assetPath = `${assetPath}/${uri.substring(uri.indexOf('jobs/'))}`;
         break;
       }
@@ -31,8 +31,8 @@ function JobStatus({ job, onChange }) {
     <>
       {job.response?.TranscriptionJob?.TranscriptionJobStatus === 'COMPLETED' && (
         <>
-          <a download href={srtPath(job)} target="_blank">
-            .srt
+          <a download={`recording.vtt`} href={vttPath(job)} target="_blank">
+            .vtt
           </a>
         </>
       )}

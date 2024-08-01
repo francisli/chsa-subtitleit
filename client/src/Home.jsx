@@ -9,7 +9,6 @@ import { useAuthContext } from './AuthContext';
 import Api from './Api';
 import FileInput from './Components/FileInput';
 import JobStatus from './Components/JobStatus';
-import Spinner from './Components/Spinner';
 
 function Home() {
   const staticContext = useStaticContext();
