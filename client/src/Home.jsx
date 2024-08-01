@@ -8,6 +8,7 @@ import { useAuthContext } from './AuthContext';
 
 import Api from './Api';
 import FileInput from './Components/FileInput';
+import JobStatus from './Components/JobStatus';
 import Spinner from './Components/Spinner';
 
 function Home() {
@@ -42,8 +43,34 @@ function Home() {
     try {
       const response = await Api.jobs.create(data);
       setJobs([response.data, ...jobs]);
+      setData({
+        file: '',
+        fileName: '',
+        fileUrl: '',
+      });
     } catch (err) {
       setError(err);
+    }
+  }
+
+  function onChangeJob(job) {
+    const newJobs = [...jobs];
+    const index = newJobs.findIndex((j) => j.id === job.id);
+    newJobs[index] = job;
+    setJobs(newJobs);
+  }
+
+  async function onDelete(job) {
+    if (window.confirm(`Are you sure you wish to delete "${job.fileName}"?`)) {
+      try {
+        await Api.jobs.delete(job.id);
+        const newJobs = [...jobs];
+        const index = newJobs.findIndex((j) => j.id === job.id);
+        newJobs.splice(index, 1);
+        setJobs(newJobs);
+      } catch (err) {
+        window.alert(err.message);
+      }
     }
   }
 
@@ -91,7 +118,14 @@ function Home() {
                   <tr key={j.id}>
                     <td className="align-middle w-300px">{DateTime.fromISO(j.createdAt).toLocaleString(DateTime.DATETIME_FULL)}</td>
                     <td className="align-middle">{j.fileName}</td>
-                    <td className="align-middle">{j.response ? <></> : <Spinner small={true} />}</td>
+                    <td className="align-middle">
+                      <JobStatus job={j} onChange={onChangeJob} />
+                    </td>
+                    <td className="align-middle text-end">
+                      <button onClick={() => onDelete(j)} className="btn btn-sm btn-danger">
+                        Delete
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
