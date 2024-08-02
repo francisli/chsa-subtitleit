@@ -229,10 +229,7 @@
                 {
                   "Sid": "VisualEditor1",
                   "Effect": "Allow",
-                  "Action": [
-                      "transcribe:GetTranscriptionJob",
-                      "transcribe:StartTranscriptionJob"
-                  ],
+                  "Action": ["transcribe:GetTranscriptionJob", "transcribe:StartTranscriptionJob"],
                   "Resource": "*"
                 }
               ]
