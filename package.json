@@ -1,6 +1,6 @@
 {
-  "name": "full-stack-starter",
-  "version": "5.0.2",
+  "name": "chsa-subtitleit",
+  "version": "1.0.0",
   "private": true,
   "workspaces": [
     "client",

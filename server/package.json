@@ -1,6 +1,6 @@
 {
-  "name": "full-stack-starter-server",
-  "version": "5.0.2",
+  "name": "chsa-subtitleit-server",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {

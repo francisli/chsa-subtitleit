@@ -1,7 +1,7 @@
 {
-  "name": "full-stack-starter-client",
+  "name": "chsa-subtitleit-client",
+  "version": "1.0.0",
   "private": true,
-  "version": "5.0.2",
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0 --port 3000",
