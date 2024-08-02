@@ -225,6 +225,15 @@
                     { "Fn::Join": ["", ["arn:aws:s3:::", { "Ref": "Bucket" }, "/*"]] },
                     { "Fn::Join": ["", ["arn:aws:s3:::", { "Ref": "Bucket" }]] }
                   ]
+                },
+                {
+                  "Sid": "VisualEditor1",
+                  "Effect": "Allow",
+                  "Action": [
+                      "transcribe:GetTranscriptionJob",
+                      "transcribe:StartTranscriptionJob"
+                  ],
+                  "Resource": "*"
                 }
               ]
             }
@@ -578,6 +587,34 @@
             "OptionName": "AWS_SES_SECRET_ACCESS_KEY",
             "Value": {
               "Fn::GetAtt": ["SESUserAccessKey", "SecretAccessKey"]
+            }
+          },
+          {
+            "Namespace": "aws:elasticbeanstalk:application:environment",
+            "OptionName": "AWS_TRANSCRIBE_ACCESS_KEY_ID",
+            "Value": {
+              "Ref": "BucketUserAccessKey"
+            }
+          },
+          {
+            "Namespace": "aws:elasticbeanstalk:application:environment",
+            "OptionName": "AWS_TRANSCRIBE_SECRET_ACCESS_KEY",
+            "Value": {
+              "Fn::GetAtt": ["BucketUserAccessKey", "SecretAccessKey"]
+            }
+          },
+          {
+            "Namespace": "aws:elasticbeanstalk:application:environment",
+            "OptionName": "AWS_TRANSCRIBE_BUCKET",
+            "Value": {
+              "Ref": "Bucket"
+            }
+          },
+          {
+            "Namespace": "aws:elasticbeanstalk:application:environment",
+            "OptionName": "AWS_TRANSCRIBE_REGION",
+            "Value": {
+              "Ref": "AWS::Region"
             }
           },
           {
