@@ -102,8 +102,8 @@ function Home() {
                 and replace the existing file.
               </li>
               <li>
-                <a download href="/modelviewer/styles.scss">
-                  Download the updated <b>styles.scss</b>
+                <a download href="/modelviewer/styles.css">
+                  Download the updated <b>styles.css</b>
                 </a>{' '}
                 and replace the existing file.
               </li>
